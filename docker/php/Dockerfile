@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    libzip-dev
+    libzip-dev \
+    libpq-dev \
+    wget
 
 COPY my-php.ini $PHP_INI_DIR/my-php.ini
 RUN cat $PHP_INI_DIR/my-php.ini >> $PHP_INI_DIR/php.ini
@@ -22,7 +24,7 @@ RUN cat $PHP_INI_DIR/my-php.ini >> $PHP_INI_DIR/php.ini
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql zip exif pcntl
+RUN docker-php-ext-install pdo_pgsql zip exif pcntl
 RUN docker-php-ext-configure gd
 RUN docker-php-ext-install gd
 

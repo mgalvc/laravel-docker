@@ -16,22 +16,15 @@ services:
       - 8080:80
   
   db:
-    image: mysql
+    image: postgis/postgis
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: laravel
     container_name: db_laravel
+    tty: true
     volumes:
-      - ./docker/db-data:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    environment:
-      PMA_HOST: db_laravel
-      PMA_PORT: 3306
+      - ./docker/db-data:/var/lib/postgresql/data
     ports:
-      - 8181:80
-    depends_on: 
-      - db
+      - 5434:5432
 
     
